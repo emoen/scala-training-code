@@ -19,35 +19,46 @@ class PersonFilterTest extends EmptyTest {
 
   val persons = alf :: fredrik :: johannes :: Nil
   
-  // @Test 
+  @Test 
   def testAll {
     // Pass in a function that returns all persons (always true)
-    // assertEquals(persons, personFilter.filterPersons(persons, error("")))
+    def f(p:Person): Boolean = {return true}
+    println( personFilter.filterPersons(persons, f))
+    
+    assertEquals(persons, personFilter.filterPersons(persons, f))
   }
   
-  // @Test 
-  def testNone {
+  @Test 
+  def test_None {
     // Pass in a function that returns no persons (always false)
-    // assertEquals(Nil, personFilter.filterPersons(persons, error("")))
+    def f(p:Person): Boolean = {return false}
+    println(personFilter.filterPersons(persons, f))
+    
+    assertEquals(Nil, personFilter.filterPersons(persons, f))
   }
   
-  // @Test 
+  @Test 
   def testEmptyList {
     // Use the two functions from above to test personFilter on empty lists (Nil)
-    // assertEquals(Nil, personFilter.filterPersons(Nil, error("")))
-    // assertEquals(Nil, personFilter.filterPersons(Nil, error("")))
+    def f(p:Person): Boolean = {return false}
+    def g(p:Person): Boolean = {return true}
+    
+    assertEquals(Nil, personFilter.filterPersons(List(), f))
+    assertEquals(Nil, personFilter.filterPersons(List(), g))
   }
 
-  // @Test 
+  @Test 
   def testOld {
     // Pass in a function that returns the persons over 18
-    // assertEquals(List(alf, fredrik), personFilter.filterPersons(persons, error("")))
+    def g(p:Person): Boolean = {p.age > 18}
+    assertEquals(List(alf, fredrik), personFilter.filterPersons(persons, g))
   }
 
-  // @Test
+  @Test
   def testYoung {
     // Pass in a function that returns the persons under 18
-    // assertEquals(List(johannes), personFilter.filterPersons(persons, error("")))
+    def g(p:Person): Boolean = {p.age < 18}
+    assertEquals(List(johannes), personFilter.filterPersons(persons, g))
   }
 
 }

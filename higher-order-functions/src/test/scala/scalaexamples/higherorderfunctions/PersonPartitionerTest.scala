@@ -19,20 +19,24 @@ class PersonPartitionerTest extends EmptyTest {
 
   val persons = alf :: fredrik :: johannes :: Nil
 
-  // @Test
+  @Test
   def testAgeLimit {
     // Pass in a function that tests whether the person is an adult
-    val (adults, kids) = (Nil, Nil) // partitioner.partitionPersons(persons, error(""))
+    def g(p:Person): Boolean = {p.age > 18}
+    val (adults, kids) = partitioner.partitionPersons(persons, g)
+    println(adults)
+    println(kids)
 
     assertEquals(List(alf, fredrik), adults)
     assertEquals(List(johannes), kids)
   }
 
-  // @Test
+  @Test
   def testHasMoreThanOneEmail {
     // Pass in a function that tests whether the person is
     // a techie (2 or more e-mail addresses) or a luddite (zero or one e-mail address)
-    val (techies, luddites) = (Nil, Nil) // partitioner.partitionPersons(persons, error(""))
+    def g(p:Person): Boolean = {p.emailAddresses.length > 1}
+    val (techies, luddites) = partitioner.partitionPersons(persons, g)
 
     assertEquals(List(fredrik), techies)
     assertEquals(List(alf, johannes), luddites)
