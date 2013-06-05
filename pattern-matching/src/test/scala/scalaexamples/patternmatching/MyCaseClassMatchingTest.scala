@@ -5,26 +5,33 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import scalaexamples.EmptyTest
+import scala.Some
 
 @RunWith(classOf[JUnit4])
 class MyCaseClassMatchingTest extends EmptyTest {
   
-  // @Test 
+  @Test 
   def matchMySuperType {
      val theClass: Any = FirstSubClass(1)
      
      val found = theClass match {
        // Add a match expression which return true
+       case FirstSubClass(value) => true
        case _ => false
      }
+     
      assertTrue(found)
   }
   
-  // @Test 
+  @Test 
   def matchSubType {
      
      def matchSubType(myType: MyCaseClass) = myType match {
        // Add match expressions which make the following code pass.
+       case FirstSubClass(value) => value
+       case SecondSubClass(value) => value
+       case ThirdSubClass(value,element) => element
+       case FourthSubClass(value, element) => element.value
        case _ => sys.error("Should never reach this")
      }
 
@@ -46,12 +53,13 @@ class MyCaseClassMatchingTest extends EmptyTest {
      assertEquals(11, foundElement)
   }
   
-  // @Test 
+  @Test 
   def matchWithExplicitType {
      val theClass: MyCaseClass = FourthSubClass("verdi", FirstSubClass(11))
 
      val foundElement: Option[FirstSubClass] = theClass match {
        // Add a match expression which make the following assertion true. Use Option type
+       case FourthSubClass(value, element) => Option(element)
        case _ => None
      }
      
