@@ -9,7 +9,7 @@ import scalaexamples.EmptyTest
 @RunWith(classOf[JUnit4])
 class RegexMatchingTest extends EmptyTest {
   
-  // @Test 
+  @Test 
   def matchEntireString {
     val string = "This is the string to find a match for."
     
@@ -24,13 +24,14 @@ class RegexMatchingTest extends EmptyTest {
     
     val mathedElement = string match {
       // Insert you match statement here
+      case matchRegex(one) => one
       case _ => "Failed"
     }
-    
+    println(mathedElement)
     assertEquals(string, mathedElement)
   }
   
-  // @Test 
+  @Test 
   def matchFirstPartOfString {
     val start = "This is"
     val string = start + " the string to find a match for."
@@ -38,40 +39,55 @@ class RegexMatchingTest extends EmptyTest {
     
     val mathedElement = string match {
       // Insert you match statement here
+      case matchRegex(one) => one
       case _ => "Failed"
     }
+    println(mathedElement)
     
     assertEquals(start, mathedElement)
   }
   
-  // @Test 
+  @Test 
   def matchFirstAndLastWordOfString {
     val start = "This"
     val end = "for"
     val string = start + " is the string to find a match " + end
     
     // Create a regular expression which will make the folliwing match and assertions correct.
-    val matchRegex = """""".r
+    val matchRegex = """^(\w+).*(\b\w+)""".r //""" raw string, \b word boundery, .*(w+) gobles word - then backtracks
+
     
     val (first, last) = string match {
       case matchRegex(firstElement, lastElement) => (firstElement, lastElement)
       case _ => "Failed"
     }
+    println(first)
+    println(last)
     
     assertEquals(start, first)
     assertEquals(end, last)
   }
   
-  // @Test 
+  @Test 
   def matchEmails {
     
     // Create a regex which identifies email (may be really simple)
 	// val emailRegex = """([^@]+)@(.+)""".r
     // You may use the regex above.
-	val emailRegex = """""".r
+	val emailRegex = """([^@]+)@(.+)""".r
     
+	var tempEmail = "aks@knowit.no"
+	val (first,last) = tempEmail match {
+      // Insert you match statement here
+	  case emailRegex(one,two) => (one,two)
+      case _ => false
+    }
+	println(first)
+	println(last)
+	
     def isValidEmail(stringToTest: String) = stringToTest match {
       // Insert you match statement here
+	  case emailRegex(one,two) => true
       case _ => false
     }
 
