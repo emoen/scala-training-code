@@ -18,17 +18,17 @@ class CompanionObjectTest extends EmptyTest{
     assertTrue(trainOne.conductor.isEmpty)
     
     val trainTwo = Train("Per", "Pål")
-    // assertEquals(List("Per", "Pål"), trainTwo.passengers)
-    // assertTrue(trainTwo.conductor.isEmpty)
+    assertEquals(List("Per", "Pål"), trainTwo.passengers)
+    assertTrue(trainTwo.conductor.isEmpty)
     
-    // val trainObject = Train
-    // val trainThree = trainObject(Array("Espen"))
-    // assertEquals(List("Espen"), trainThree.passengers)
-    // assertTrue(trainThree.conductor.isEmpty)
+    val trainObject = Train
+    val trainThree = trainObject(Array("Espen"))
+    assertEquals(List("Espen"), trainThree.passengers)
+    assertTrue(trainThree.conductor.isEmpty)
 
-    // val trainFour = trainObject.apply(Some("conductor"), "Espen")
-    // assertEquals(List("Espen"), trainFour.passengers)
-    // assertTrue(trainFour.conductor.isDefined)
+    val trainFour = trainObject.apply(Some("conductor"), "Espen")
+    assertEquals(List("Espen"), trainFour.passengers)
+    assertTrue(trainFour.conductor.isDefined)
 
   }
   
