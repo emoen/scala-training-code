@@ -15,9 +15,9 @@ class CompanionObjectTest extends EmptyTest{
     
     val trainOne = Train(Array("Espen"))
     assertEquals(List("Espen"), trainOne.passengers)
-    // assertTrue(trainOne.conductor.isEmpty)
+    assertTrue(trainOne.conductor.isEmpty)
     
-    // val trainTwo = Train("Per", "Pål")
+    val trainTwo = Train("Per", "Pål")
     // assertEquals(List("Per", "Pål"), trainTwo.passengers)
     // assertTrue(trainTwo.conductor.isEmpty)
     
